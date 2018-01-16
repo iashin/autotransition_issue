@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 26
@@ -18,8 +19,28 @@ android {
     }
 }
 
+def powermockVersion = '1.7.3'
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    // unit test dependencies
+    testCompile ("org.powermock:powermock-module-junit4-rule-agent:$powermockVersion") {
+    }
+    testCompile ("org.powermock:powermock-api-mockito2:$powermockVersion") {
+    }
+    testCompile "org.powermock:powermock-module-junit4-rule:$powermockVersion"
+    testCompile("org.powermock:powermock-module-junit4:$powermockVersion") {
+        exclude module: 'junit'
+    }
+    testCompile 'junit:junit:4.12'
+
+    testCompile ("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version") {
+        exclude group: 'org.jetbrains', module: 'annotations'
+    }
+
+}
+repositories {
+    mavenCentral()
 }

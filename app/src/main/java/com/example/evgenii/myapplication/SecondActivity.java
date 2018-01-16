@@ -2,20 +2,23 @@ package com.example.evgenii.myapplication;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.AutoTransition;
+import android.view.View;
+import android.view.Window;
+import android.widget.Toast;
 
 public class SecondActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         setContentView(R.layout.activity_second);
 
-        AutoTransition transition = new AutoTransition();
-        transition.setDuration(1000);
-        getWindow().setSharedElementEnterTransition(transition);
-
-        findViewById(R.id.text_view_second).setTransitionName("text");
-        findViewById(R.id.container_second).setTransitionName("container");
+        findViewById(R.id.container_second).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "This is the second activity!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
